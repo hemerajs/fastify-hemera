@@ -25,6 +25,7 @@ fastify.register(require("fastify-hemera"), {
 
 ```bash
 $ docker-compose up
+$ node example.js
 ```
 
 ```
