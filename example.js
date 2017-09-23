@@ -31,24 +31,44 @@ function routes(fastify) {
       )
     }
   })
+
+  fastify.route({
+    method: 'GET',
+    url: '/request',
+    schema: {
+      querystring: {
+        a: { type: 'integer' },
+        b: { type: 'integer' }
+      }
+    },
+    handler: (req, reply) => {
+      req.log.info('Reply route')
+      reply.send(
+        req.hemera.act({
+          topic: 'math',
+          cmd: 'add',
+          a: req.query.a,
+          b: req.query.b
+        })
+      )
+    }
+  })
 }
 
-function build(opts) {
-  const fastify = Fastify(opts)
+function build(opts, cb) {
+  const fastify = Fastify({ logger: opts.logger })
 
   fastify
     .register(require('./'), {
-      hemera: {
-        logLevel: 'error'
-      },
-      nats: 'nats://localhost:4222'
+      hemera: opts.hemera,
+      plugins: opts.plugins,
+      nats: opts.nats
     })
     .after(() => {
       routes(fastify)
       hemeraActions(fastify)
+      cb(fastify)
     })
-
-  return fastify
 }
 
 if (require.main === module) {

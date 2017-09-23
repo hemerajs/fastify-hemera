@@ -5,14 +5,17 @@ const Nats = require('nats')
 const Hemera = require('nats-hemera')
 
 function fastifyHemera(fastify, opts, next) {
-  const hemera = new Hemera(Nats.connect(opts.nats), opts.hemera)
+  const hemera = new Hemera(
+    opts.natsInstance || Nats.connect(opts.nats),
+    opts.hemera
+  )
 
   if (opts.plugins) {
-    opts.plugins.forEach(plugin => {
-      if (plugin.plugin) {
-        hemera.use(plugin)
+    opts.plugins.forEach(p => {
+      if (p.plugin) {
+        hemera.use(p)
       } else {
-        hemera.use(plugin.register, plugin.options)
+        hemera.use(p.register, p.options)
       }
     })
   }
