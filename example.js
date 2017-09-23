@@ -26,9 +26,7 @@ function routes(fastify) {
     },
     handler: (req, reply) => {
       req.log.info('Reply route')
-      reply.send(
-        reply.act({ topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b })
-      )
+      reply.act({ topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b })
     }
   })
 
