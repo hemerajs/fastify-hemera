@@ -1,3 +1,7 @@
+'use strict'
+
+const Fastify = require('fastify')
+
 function hemeraActions(fastify) {
   fastify.hemera.add(
     {
@@ -22,26 +26,40 @@ function routes(fastify) {
     },
     handler: (req, reply) => {
       req.log.info('Reply route')
-      reply.send(reply.act({ topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b }))
+      reply.send(
+        reply.act({ topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b })
+      )
     }
   })
 }
 
-const Fastify = require('fastify')
+function build(opts) {
+  const fastify = Fastify(opts)
 
-fastify = Fastify({
-  logger: {
-    level: 'info'
-  }
-})
+  fastify
+    .register(require('./'), {
+      nats: 'nats://localhost:4222'
+    })
+    .after(() => {
+      routes(fastify)
+      hemeraActions(fastify)
+    })
 
-fastify
-  .register(require('./'), {
-    nats: 'nats://localhost:4222'
+  return fastify
+}
+
+if (require.main === module) {
+  const fastify = build({
+    logger: {
+      level: 'info'
+    }
   })
-  .after(() => {
-    routes(fastify)
-    hemeraActions(fastify)
+  fastify.listen(3000, err => {
+    if (err) throw err
+    console.log(
+      `Server listenting at http://localhost:${fastify.server.address().port}`
+    )
   })
+}
 
-fastify.listen(3000)
+module.exports = build
