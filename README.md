@@ -1,5 +1,6 @@
 # fastify-hemera
 [![Build Status](https://travis-ci.org/hemerajs/fastify-hemera.svg?branch=master)](https://travis-ci.org/hemerajs/fastify-hemera)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](#badge)
 
 [Fastify](https://github.com/fastify/fastify) plugin to integrate [Hemera](https://github.com/hemerajs/hemera)
 

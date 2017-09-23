@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier ./*.js --write",
-    "test": "tap ./*.test.js | tap-spec",
+    "test": "prettier ./*.js --debug-check && tap ./*.test.js | tap-spec",
     "patch": "np patch --yolo",
     "minor": "np minor --yolo",
     "major": "np major --yolo"
