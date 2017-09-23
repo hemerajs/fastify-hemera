@@ -14,7 +14,14 @@
     "type": "git",
     "url": "git+https://github.com/hemerajs/fastify-hemera.git"
   },
-  "keywords": ["web", "framework", "hemera", "fastify", "microservice", "proxy"],
+  "keywords": [
+    "web",
+    "framework",
+    "hemera",
+    "fastify",
+    "microservice",
+    "proxy"
+  ],
   "author": "Dustin Deus <deusdustin@gmail.com> (http://www.starptech.de)",
   "license": "ISC",
   "bugs": {
@@ -37,6 +44,6 @@
   "dependencies": {
     "fastify-plugin": "^0.1.1",
     "nats": "^0.7.20",
-    "nats-hemera": "^1.5.13"
+    "nats-hemera": "^1.6.0"
   }
 }

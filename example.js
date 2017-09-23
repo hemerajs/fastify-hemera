@@ -38,6 +38,9 @@ function build(opts) {
 
   fastify
     .register(require('./'), {
+      hemera: {
+        logLevel: 'error'
+      },
       nats: 'nats://localhost:4222'
     })
     .after(() => {
