@@ -12,7 +12,7 @@ npm install --save fastify-hemera
 
 ## Register plugin
 ```js
-fastify.register(require("fastify-hemera"), {
+fastify.register(require('fastify-hemera'), {
     plugins: [{
       register: require('hemera-mongo-store'),
       options: {}
@@ -32,8 +32,44 @@ Full list of [hemera plugins](https://github.com/hemerajs/hemera#packages)
 ```bash
 $ docker-compose up
 $ node example.js
+$ curl http://localhost:3000/reply?a=33&b=22
 ```
 
+## Examples
+Callback
+```js
+fastify.route({
+  method: 'GET',
+  url: '/math/add',
+  handler: (req, reply) => {
+    reply.act(
+      { topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b },
+      function(err, result) {
+        reply.send(result);
+      }
+    );
+  }
+});
 ```
-GET http://localhost:3000/reply?a=33&b=22
+Promise
+```js
+fastify.route({
+  method: 'GET',
+  url: '/math/add',
+  handler: (req, reply) => {
+    reply.send(
+      reply.act({ topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b })
+    )
+  }
+})
+```
+Async / Await
+```
+fastify.route({
+  method: 'GET',
+  url: '/math/add',
+  handler: async function (req, reply) {
+    await reply.act({ topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b })
+  }
+})
 ```
