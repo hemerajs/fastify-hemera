@@ -1,4 +1,6 @@
 # fastify-hemera
+[![Build Status](https://travis-ci.org/hemerajs/fastify-hemera.svg?branch=master)](https://travis-ci.org/hemerajs/fastify-hemera)
+
 [Fastify](https://github.com/fastify/fastify) plugin to integrate [Hemera](https://github.com/hemerajs/hemera)
 
 ## Install
