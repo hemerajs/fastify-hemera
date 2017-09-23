@@ -64,7 +64,7 @@ fastify.route({
 })
 ```
 Async / Await
-```
+```js
 fastify.route({
   method: 'GET',
   url: '/math/add',
