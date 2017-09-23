@@ -11,7 +11,11 @@ t.tearDown(() => {
 
 test('boot server', t => {
   t.plan(0)
-  fastify = build()
+  fastify = build({
+    logger: {
+      level: 'info'
+    }
+  })
 })
 
 test('reply interface', t => {

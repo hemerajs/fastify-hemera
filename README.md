@@ -20,3 +20,13 @@ fastify.register(require("fastify-hemera"), {
     nats: 'nats://localhost:4242'
 })
 ```
+
+## Getting Started
+
+```bash
+$ docker-compose up
+```
+
+```
+GET http://localhost:3000/reply?a=33&b=22
+```

@@ -1,0 +1,8 @@
+version: "2"
+
+services:
+  nats:
+    image: 'nats:0.9.2'
+    ports:
+      - "8222:8222"
+      - "4222:4222"
