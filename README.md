@@ -23,6 +23,8 @@ fastify.register(require("fastify-hemera"), {
 })
 ```
 
+Full list of [hemera plugins](https://github.com/hemerajs/hemera#packages)
+
 ## Getting Started
 
 ```bash
