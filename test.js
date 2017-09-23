@@ -2,51 +2,16 @@
 
 const t = require('tap')
 const test = t.test
-const Fastify = require('fastify')
+const build = require('./example')
 let fastify = null
-
-function hemeraActions(fastify) {
-  fastify.hemera.add(
-    {
-      topic: 'math',
-      cmd: 'add'
-    },
-    function(req, reply) {
-      reply(null, { result: req.a + req.b })
-    }
-  )
-}
-
-function routes(fastify) {
-  fastify.route({
-    method: 'GET',
-    url: '/reply',
-    handler: (req, reply) => {
-      req.log.info('Reply route')
-      reply.send(reply.act({ topic: 'math', cmd: 'add', a: 1, b: 2 }))
-    }
-  })
-}
 
 t.tearDown(() => {
   fastify.close()
 })
 
 test('boot server', t => {
-  fastify = Fastify({
-    logger: {
-      level: 'info'
-    }
-  })
-  fastify
-    .register(require('./'), {
-      nats: 'nats://localhost:4222'
-    })
-    .after(() => {
-      routes(fastify)
-      hemeraActions(fastify)
-      t.end()
-    })
+  t.plan(0)
+  fastify = build()
 })
 
 test('reply interface', t => {
@@ -55,7 +20,7 @@ test('reply interface', t => {
   fastify.inject(
     {
       method: 'GET',
-      url: '/reply'
+      url: '/reply?a=1&b=2'
     },
     res => {
       const payload = JSON.parse(res.payload)
