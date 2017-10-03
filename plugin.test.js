@@ -11,13 +11,13 @@ const port = 3439
 
 const plugins = [
   {
-    plugin: function plugin(options, next) {
-      next()
+    plugin: function plugin(hemera, opts, done) {
+      done()
     },
-    attributes: {
-      name: 'myPlugin'
-    },
-    options: { a: 1 }
+    options: {
+      name: 'myPlugin',
+      a: 1
+    }
   }
 ]
 
@@ -50,5 +50,8 @@ test('boot server', t => {
 test('plugin should be registered', t => {
   t.plan(2)
   t.ok(fastify.hemera.plugins.myPlugin)
-  t.deepEqual(fastify.hemera.plugins.myPlugin.options, { a: 1 })
+  t.deepEqual(fastify.hemera.plugins.myPlugin.plugin$.options, {
+    name: 'myPlugin',
+    a: 1
+  })
 })
