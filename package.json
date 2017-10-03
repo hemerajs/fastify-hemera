@@ -45,6 +45,6 @@
   "dependencies": {
     "fastify-plugin": "^0.1.1",
     "nats": "^0.7.20",
-    "nats-hemera": "^2.0.0-0"
+    "nats-hemera": "^2.0.0"
   }
 }
