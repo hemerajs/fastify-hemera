@@ -41,14 +41,12 @@ function routes(fastify) {
     },
     handler: (req, reply) => {
       req.log.info('Reply route')
-      reply.send(
-        req.hemera.act({
-          topic: 'math',
-          cmd: 'add',
-          a: req.query.a,
-          b: req.query.b
-        })
-      )
+      return req.hemera.act({
+        topic: 'math',
+        cmd: 'add',
+        a: req.query.a,
+        b: req.query.b
+      })
     }
   })
 }
@@ -75,12 +73,7 @@ if (require.main === module) {
       level: 'info'
     }
   })
-  fastify.listen(3000, err => {
-    if (err) throw err
-    console.log(
-      `Server listenting at http://localhost:${fastify.server.address().port}`
-    )
-  })
+  fastify.listen(3000)
 }
 
 module.exports = build

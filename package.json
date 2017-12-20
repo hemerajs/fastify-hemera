@@ -29,13 +29,13 @@
   },
   "homepage": "https://github.com/hemerajs/fastify-hemera#readme",
   "devDependencies": {
-    "fastify": "^0.29.2",
+    "fastify": "^0.36.0",
     "hemera-testsuite": "^1.4.1",
-    "np": "^2.16.0",
+    "light-my-request": "^1.1.1",
+    "np": "^2.18.3",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.7.4",
-    "shot": "3.0.0",
-    "tap": "^10.7.2",
+    "prettier": "^1.9.2",
+    "tap": "^11.0.0",
     "tap-spec": "^4.1.1"
   },
   "prettier": {
@@ -43,8 +43,8 @@
     "singleQuote": true
   },
   "dependencies": {
-    "fastify-plugin": "^0.1.1",
-    "nats": "^0.7.20",
-    "nats-hemera": "^2.0.0-0"
+    "fastify-plugin": "^0.2.1",
+    "nats": "^0.7.24",
+    "nats-hemera": "^3.0.0"
   }
 }

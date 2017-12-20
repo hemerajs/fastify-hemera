@@ -9,17 +9,15 @@ let fastify = null
 let server = null
 const port = 3439
 
-const plugins = [
-  {
-    plugin: function plugin(hemera, opts, done) {
-      done()
-    },
-    options: {
-      name: 'myPlugin',
-      a: 1
-    }
-  }
-]
+const myPlugin = function myPlugin(hemera, options, done) {
+  done()
+}
+
+myPlugin[Symbol.for('dependencies')] = []
+myPlugin[Symbol.for('name')] = 'myPlugin'
+myPlugin[Symbol.for('options')] = { a: 1 }
+
+const plugins = [myPlugin]
 
 t.tearDown(() => {
   fastify.close(() => server.kill())
@@ -51,7 +49,6 @@ test('plugin should be registered', t => {
   t.plan(2)
   t.ok(fastify.hemera.plugins.myPlugin)
   t.deepEqual(fastify.hemera.plugins.myPlugin.plugin$.options, {
-    name: 'myPlugin',
     a: 1
   })
 })

@@ -11,13 +11,7 @@ function fastifyHemera(fastify, opts, next) {
   )
 
   if (opts.plugins) {
-    opts.plugins.forEach(p => {
-      if (p.plugin) {
-        hemera.use(p)
-      } else {
-        hemera.use(p.register, p.options)
-      }
-    })
+    opts.plugins.forEach(p => hemera.use(p))
   }
 
   fastify.addHook('onClose', (instance, done) => {
@@ -34,4 +28,4 @@ function fastifyHemera(fastify, opts, next) {
   hemera.ready(next)
 }
 
-module.exports = fp(fastifyHemera, '>=0.28.2')
+module.exports = fp(fastifyHemera, '>=0.36.0')

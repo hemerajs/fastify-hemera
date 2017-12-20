@@ -13,10 +13,7 @@ npm install --save fastify-hemera
 ## Register plugin
 ```js
 fastify.register(require('fastify-hemera'), {
-    plugins: [{
-      register: require('hemera-mongo-store'),
-      options: {}
-    }],
+    plugins: [require('hemera-mongo-store')],
     hemera:{
       name: 'test',
       logLevel: 'debug'
