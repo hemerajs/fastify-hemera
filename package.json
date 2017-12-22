@@ -35,7 +35,7 @@
     "np": "^2.18.3",
     "pre-commit": "^1.2.2",
     "prettier": "^1.9.2",
-    "tap": "^11.0.0",
+    "tap": "^11.0.1",
     "tap-spec": "^4.1.1"
   },
   "prettier": {
@@ -45,6 +45,6 @@
   "dependencies": {
     "fastify-plugin": "^0.2.1",
     "nats": "^0.7.24",
-    "nats-hemera": "^3.0.0"
+    "nats-hemera": "^3.0.2"
   }
 }

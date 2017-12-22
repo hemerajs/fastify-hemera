@@ -9,14 +9,10 @@ function fastifyHemera(fastify, opts, next) {
     opts.natsInstance || Nats.connect(opts.nats),
     opts.hemera
   )
-  
+
   hemera.on('error', error => fastify.log.error(error))
-  hemera.on('serverResponseError', error =>
-    fastify.log.error(error)
-  )
-  hemera.on('clientResponseError', error =>
-    fastify.log.error(error)
-  )
+  hemera.on('serverResponseError', error => fastify.log.error(error))
+  hemera.on('clientResponseError', error => fastify.log.error(error))
 
   if (opts.plugins) {
     opts.plugins.forEach(p => hemera.use(p))
