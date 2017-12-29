@@ -6,6 +6,7 @@
   "scripts": {
     "format": "prettier ./*.js --write",
     "test": "prettier ./*.js --debug-check && tap ./*.test.js | tap-spec",
+    "lint": "eslint ./**/*.js",
     "patch": "np patch --yolo",
     "minor": "np minor --yolo",
     "major": "np major --yolo"
@@ -29,18 +30,16 @@
   },
   "homepage": "https://github.com/hemerajs/fastify-hemera#readme",
   "devDependencies": {
-    "fastify": "^0.36.0",
-    "hemera-testsuite": "^1.4.1",
+    "eslint": "^4.14.0",
+    "eslint-config-hemera": "0.0.1",
+    "fastify": "^0.37.0",
+    "hemera-testsuite": "^2.0.5",
     "light-my-request": "^1.1.1",
     "np": "^2.18.3",
     "pre-commit": "^1.2.2",
     "prettier": "^1.9.2",
     "tap": "^11.0.1",
     "tap-spec": "^4.1.1"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
   },
   "dependencies": {
     "fastify-plugin": "^0.2.1",

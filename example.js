@@ -63,8 +63,8 @@ function build(opts, cb) {
     .after(() => {
       routes(fastify)
       hemeraActions(fastify)
-      cb(fastify)
     })
+    .ready(() => cb(fastify))
 }
 
 if (require.main === module) {
