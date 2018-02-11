@@ -16,21 +16,17 @@ t.tearDown(() => {
 test('boot server', t => {
   server = ts.start_server(port, err => {
     t.error(err)
-    fastify = build(
-      {
-        hemera: {
-          logLevel: 'error'
-        },
-        nats: 'nats://127.0.0.1:' + port,
-        logger: {
-          level: 'error'
-        }
+    fastify = build({
+      hemera: {
+        logLevel: 'error'
       },
-      f => {
-        fastify = f
-        t.end()
+      plugins: [],
+      nats: 'nats://127.0.0.1:' + port,
+      logger: {
+        level: 'error'
       }
-    )
+    })
+    t.end()
   })
 })
 
@@ -42,7 +38,7 @@ test('reply decorator', t => {
       method: 'GET',
       url: '/reply?a=1&b=2'
     },
-    res => {
+    (err, res) => {
       const payload = JSON.parse(res.payload)
       t.deepEqual(payload, { result: 3 })
     }
@@ -65,7 +61,7 @@ test('request decorator', t => {
       method: 'GET',
       url: '/request?a=1&b=2'
     },
-    res => {
+    (err, res) => {
       const payload = JSON.parse(res.payload)
       t.deepEqual(payload, { result: 3 })
     }

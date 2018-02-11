@@ -51,7 +51,7 @@ function routes(fastify) {
   })
 }
 
-function build(opts, cb) {
+function build(opts) {
   const fastify = Fastify({ logger: opts.logger })
 
   fastify
@@ -60,11 +60,13 @@ function build(opts, cb) {
       plugins: opts.plugins,
       nats: opts.nats
     })
-    .after(() => {
+    .after((err) => {
+      if (err) throw err
       routes(fastify)
       hemeraActions(fastify)
     })
-    .ready(() => cb(fastify))
+
+  return fastify
 }
 
 if (require.main === module) {

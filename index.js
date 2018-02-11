@@ -26,10 +26,13 @@ function fastifyHemera(fastify, opts, next) {
   fastify.decorateRequest('hemera', hemera)
   fastify.decorateReply('add', hemera.add.bind(hemera))
   fastify.decorateReply('act', function(pattern) {
-    hemera.act(pattern, (err, resp) => this.send(err || resp))
+    return hemera.act(pattern, (err, resp) => this.send(err || resp))
   })
 
   hemera.ready(next)
 }
 
-module.exports = fp(fastifyHemera, '>=0.36.0')
+module.exports = fp(fastifyHemera, {
+  fastify: '>=0.36.0',
+  name: 'fastify-hemera'
+})
