@@ -60,7 +60,7 @@ function build(opts) {
       plugins: opts.plugins,
       nats: opts.nats
     })
-    .after((err) => {
+    .after(err => {
       if (err) throw err
       routes(fastify)
       hemeraActions(fastify)
