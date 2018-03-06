@@ -33,6 +33,6 @@ function fastifyHemera(fastify, opts, next) {
 }
 
 module.exports = fp(fastifyHemera, {
-  fastify: '>=0.36.0',
+  fastify: '^1.0.0',
   name: 'fastify-hemera'
 })
