@@ -46,7 +46,7 @@ function routes(fastify) {
         cmd: 'add',
         a: req.query.a,
         b: req.query.b
-      })
+      }).then((resp) => resp.data)
     }
   })
 }

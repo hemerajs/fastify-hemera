@@ -49,7 +49,7 @@ test('fastify decorator', t => {
   t.plan(1)
 
   fastify.hemera.act({ topic: 'math', cmd: 'add', a: 1, b: 2 }).then(result => {
-    t.deepEqual(result, { result: 3 })
+    t.deepEqual(result.data, { result: 3 })
   })
 })
 
