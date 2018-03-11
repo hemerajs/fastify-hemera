@@ -26,7 +26,10 @@ function fastifyHemera(fastify, opts, next) {
   fastify.decorateRequest('hemera', hemera)
   fastify.decorateReply('add', hemera.add.bind(hemera))
   fastify.decorateReply('act', function(pattern) {
-    return hemera.act(pattern, (err, resp) => this.send(err || resp))
+    return hemera
+      .act(pattern)
+      .then(resp => this.send(resp.data))
+      .catch(err => this.send(err))
   })
 
   hemera.ready(next)
