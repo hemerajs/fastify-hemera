@@ -50,7 +50,11 @@ fastify.route({
   method: 'GET',
   url: '/math/add',
   handler: async function (req, reply) {
-    await req.hemera.act({ topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b })
+    let resp = await req.hemera.act({ topic: 'math', cmd: 'add', a: req.query.a, b: req.query.b })
+    // access result
+    resp.data
+    // retain parent context
+    resp = resp.context.act(...)
   }
 })
 ```
