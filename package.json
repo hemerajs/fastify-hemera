@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier ./*.js --write",
-    "test": "prettier ./*.js --debug-check && tap ./*.test.js | tap-spec",
+    "test": "tap ./*.test.js | tap-spec",
     "lint": "eslint ./**/*.js",
     "patch": "np patch --yolo",
     "minor": "np minor --yolo",
@@ -30,11 +30,11 @@
   },
   "homepage": "https://github.com/hemerajs/fastify-hemera#readme",
   "devDependencies": {
-    "eslint": "^4.18.2",
+    "eslint": "^4.19.0",
     "eslint-config-hemera": "0.0.2",
     "fastify": "^1.1.1",
-    "hemera-plugin": "^0.1.2",
-    "hemera-testsuite": "^2.0.5",
+    "hemera-plugin": "^1.1.1",
+    "hemera-testsuite": "^4.0.0",
     "light-my-request": "^2.0.1",
     "np": "^2.20.1",
     "pre-commit": "^1.2.2",
@@ -43,9 +43,8 @@
     "tap-spec": "^4.1.1"
   },
   "dependencies": {
-    "bloomrun": "^4.1.0",
     "fastify-plugin": "^0.2.2",
-    "nats": "0.8.4",
-    "nats-hemera": "^4.0.0"
+    "nats": "0.8.x",
+    "nats-hemera": "^5.0.0-rc.1"
   }
 }

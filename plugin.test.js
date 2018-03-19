@@ -4,6 +4,7 @@ const t = require('tap')
 const test = t.test
 const ts = require('hemera-testsuite')
 const hp = require('hemera-plugin')
+const internalSymbols = require('nats-hemera/lib/symbols')
 const build = require('./example')
 
 let fastify = null
@@ -49,9 +50,6 @@ test('boot server', t => {
 })
 
 test('plugin should be registered', t => {
-  t.plan(2)
-  t.ok(fastify.hemera.plugins.myPlugin)
-  t.deepEqual(fastify.hemera.plugins.myPlugin.plugin$.options, {
-    a: 1
-  })
+  t.plan(1)
+  t.deepEqual(fastify.hemera[internalSymbols.registeredPlugins], ['myPlugin'])
 })

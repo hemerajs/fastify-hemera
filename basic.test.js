@@ -31,7 +31,7 @@ test('boot server', t => {
 })
 
 test('reply decorator', t => {
-  t.plan(1)
+  t.plan(2)
 
   fastify.inject(
     {
@@ -39,6 +39,7 @@ test('reply decorator', t => {
       url: '/reply?a=1&b=2'
     },
     (err, res) => {
+      t.error(err)
       const payload = JSON.parse(res.payload)
       t.deepEqual(payload, { result: 3 })
     }
@@ -54,7 +55,7 @@ test('fastify decorator', t => {
 })
 
 test('request decorator', t => {
-  t.plan(1)
+  t.plan(2)
 
   fastify.inject(
     {
@@ -62,6 +63,7 @@ test('request decorator', t => {
       url: '/request?a=1&b=2'
     },
     (err, res) => {
+      t.error(err)
       const payload = JSON.parse(res.payload)
       t.deepEqual(payload, { result: 3 })
     }

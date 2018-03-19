@@ -41,12 +41,14 @@ function routes(fastify) {
     },
     handler: (req, reply) => {
       req.log.info('Reply route')
-      return req.hemera.act({
-        topic: 'math',
-        cmd: 'add',
-        a: req.query.a,
-        b: req.query.b
-      }).then((resp) => resp.data)
+      return req.hemera
+        .act({
+          topic: 'math',
+          cmd: 'add',
+          a: req.query.a,
+          b: req.query.b
+        })
+        .then(resp => resp.data)
     }
   })
 }

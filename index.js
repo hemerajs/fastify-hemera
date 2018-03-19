@@ -10,11 +10,10 @@ function fastifyHemera(fastify, opts, next) {
     opts.hemera
   )
 
-  hemera.on('error', error => fastify.log.error(error))
   hemera.on('serverResponseError', error => fastify.log.error(error))
   hemera.on('clientResponseError', error => fastify.log.error(error))
 
-  if (opts.plugins) {
+  if (opts.plugins && opts.plugins.length) {
     opts.plugins.forEach(p => hemera.use(p))
   }
 
