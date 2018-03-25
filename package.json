@@ -1,6 +1,6 @@
 {
   "name": "fastify-hemera",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "description": "Fastify plugin to integrate Hemera",
   "main": "index.js",
   "scripts": {
