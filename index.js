@@ -14,11 +14,21 @@ function fastifyHemera(fastify, opts, next) {
   hemera.on('clientResponseError', error => fastify.log.error(error))
 
   if (opts.plugins && opts.plugins.length) {
-    opts.plugins.forEach(p => hemera.use(p))
+    opts.plugins.forEach(p => {
+      if (p.plugin) {
+        hemera.use(p.plugin, p.options)
+      } else {
+        hemera.use(p)
+      }
+    })
   }
 
   fastify.addHook('onClose', (instance, done) => {
-    hemera.close(done)
+    fastify.log.debug('closing hemera ...')
+    hemera.close(() => {
+      fastify.log.debug('hemera closed')
+      done()
+    })
   })
 
   fastify.decorate('hemera', hemera)

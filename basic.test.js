@@ -17,14 +17,8 @@ test('boot server', t => {
   server = ts.start_server(port, err => {
     t.error(err)
     fastify = build({
-      hemera: {
-        logLevel: 'error'
-      },
       plugins: [],
-      nats: 'nats://127.0.0.1:' + port,
-      logger: {
-        level: 'error'
-      }
+      nats: 'nats://127.0.0.1:' + port
     })
     t.end()
   })

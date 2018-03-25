@@ -4,52 +4,71 @@ const t = require('tap')
 const test = t.test
 const ts = require('hemera-testsuite')
 const hp = require('hemera-plugin')
-const internalSymbols = require('nats-hemera/lib/symbols')
 const build = require('./example')
 
-let fastify = null
-let server = null
 const port = 3439
 
-const myPlugin = hp(
-  function myPlugin(hemera, options, done) {
-    done()
-  },
-  {
-    name: 'myPlugin',
-    dependencies: [],
-    options: { a: 1 }
-  }
-)
+test('Should be able to register a plugin', t => {
+  t.plan(3)
 
-const plugins = [myPlugin]
-
-t.tearDown(() => {
-  fastify.close(() => server.kill())
-})
-
-test('boot server', t => {
-  server = ts.start_server(port, err => {
+  const server = ts.start_server(port, err => {
     t.error(err)
-    fastify = build({
-      hemera: {
-        logLevel: 'error'
-      },
-      plugins,
-      nats: 'nats://127.0.0.1:' + port,
-      logger: {
-        level: 'error'
-      }
+    const fastify = build({
+      plugins: [
+        hp(
+          function myPlugin(hemera, options, done) {
+            t.deepEqual(options, { a: 1 })
+            done()
+          },
+          {
+            name: 'myPlugin',
+            options: { a: 1 }
+          }
+        )
+      ],
+      nats: 'nats://127.0.0.1:' + port
     })
-    // register all plugins
     fastify.ready(() => {
       t.error(err)
-      t.end()
+      fastify.close(() => {
+        server.kill()
+        t.end()
+      })
     })
   })
 })
 
-test('plugin should be registered', t => {
-  t.plan(1)
-  t.deepEqual(fastify.hemera[internalSymbols.registeredPlugins], ['myPlugin'])
+test('Should be able to register a plugin with custom options', t => {
+  t.plan(3)
+
+  const server = ts.start_server(port, err => {
+    t.error(err)
+    const fastify = build({
+      plugins: [
+        {
+          plugin: hp(
+            function myPlugin(hemera, options, done) {
+              t.deepEqual(options, { a: 1, b: 2 })
+              done()
+            },
+            {
+              name: 'myPlugin',
+              options: { a: 1 }
+            }
+          ),
+          options: {
+            b: 2
+          }
+        }
+      ],
+      nats: 'nats://127.0.0.1:' + port
+    })
+    fastify.ready(() => {
+      t.error(err)
+      fastify.close(() => {
+        server.kill()
+        t.end()
+      })
+    })
+  })
 })
