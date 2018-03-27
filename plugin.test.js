@@ -6,7 +6,7 @@ const ts = require('hemera-testsuite')
 const hp = require('hemera-plugin')
 const build = require('./example')
 
-const port = 3439
+const port = 4222
 
 test('Should be able to register a plugin', t => {
   t.plan(3)

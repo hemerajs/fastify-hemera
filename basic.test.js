@@ -9,11 +9,7 @@ let fastify = null
 let server = null
 const port = 4234
 
-t.tearDown(() => {
-  fastify.close(() => server.kill())
-})
-
-test('boot server', t => {
+test('setup', t => {
   server = ts.start_server(port, err => {
     t.error(err)
     fastify = build({
@@ -62,4 +58,11 @@ test('request decorator', t => {
       t.deepEqual(payload, { result: 3 })
     }
   )
+})
+
+test('teardown', function(t) {
+  fastify.close(() => {
+    server.kill()
+    t.end()
+  })
 })
