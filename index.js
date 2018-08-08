@@ -24,9 +24,9 @@ function fastifyHemera(fastify, opts, next) {
   }
 
   fastify.addHook('onClose', (instance, done) => {
-    fastify.log.debug('closing hemera ...')
+    fastify.log.debug('closing hemera...')
     hemera.close(() => {
-      fastify.log.debug('hemera closed')
+      fastify.log.debug('hemera closed!')
       done()
     })
   })
