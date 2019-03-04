@@ -5,13 +5,9 @@ const Nats = require('nats')
 const Hemera = require('nats-hemera')
 
 function fastifyHemera(fastify, opts, next) {
-  const hemera = new Hemera(
-    opts.natsInstance || Nats.connect(opts.nats),
-    opts.hemera
-  )
+  const hemera = new Hemera(opts.natsInstance || Nats.connect(opts.nats), opts.hemera)
 
-  hemera.on('serverResponseError', error => fastify.log.error(error))
-  hemera.on('clientResponseError', error => fastify.log.error(error))
+  hemera.ext('onError', error => fastify.log.error(error))
 
   if (opts.plugins && opts.plugins.length) {
     opts.plugins.forEach(p => {
@@ -34,7 +30,7 @@ function fastifyHemera(fastify, opts, next) {
   fastify.decorate('hemera', hemera)
   fastify.decorateRequest('hemera', hemera)
   fastify.decorateReply('add', hemera.add.bind(hemera))
-  fastify.decorateReply('act', function(pattern) {
+  fastify.decorateReply('act', function act(pattern) {
     return hemera
       .act(pattern)
       .then(resp => this.send(resp.data))
@@ -45,6 +41,6 @@ function fastifyHemera(fastify, opts, next) {
 }
 
 module.exports = fp(fastifyHemera, {
-  fastify: '^1.0.0',
+  fastify: '^2.0.0',
   name: 'fastify-hemera'
 })

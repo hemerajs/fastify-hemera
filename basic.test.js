@@ -1,7 +1,8 @@
 'use strict'
 
-const t = require('tap')
-const test = t.test
+// eslint-disable-next-line node/no-unpublished-require
+const { test } = require('tap')
+// eslint-disable-next-line node/no-unpublished-require
 const ts = require('hemera-testsuite')
 const build = require('./example')
 
@@ -14,7 +15,7 @@ test('setup', t => {
     t.error(err)
     fastify = build({
       plugins: [],
-      nats: 'nats://127.0.0.1:' + port
+      nats: `nats://127.0.0.1:${port}`
     })
     t.end()
   })
@@ -63,7 +64,7 @@ test('request decorator', t => {
   )
 })
 
-test('teardown', function(t) {
+test('teardown', function teardown(t) {
   fastify.close(() => {
     server.kill()
     t.end()

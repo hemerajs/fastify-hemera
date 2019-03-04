@@ -1,9 +1,12 @@
 'use strict'
 
-const t = require('tap')
-const test = t.test
+// eslint-disable-next-line node/no-unpublished-require
+const { test } = require('tap')
+// eslint-disable-next-line node/no-unpublished-require
 const ts = require('hemera-testsuite')
+// eslint-disable-next-line node/no-unpublished-require
 const hp = require('hemera-plugin')
+
 const build = require('./example')
 
 const port = 4250
@@ -32,13 +35,13 @@ test('Should be able to register a plugin', t => {
         }
       )
     ],
-    nats: 'nats://127.0.0.1:' + port
+    nats: `nats://127.0.0.1:${port}`
   })
 
-  fastify.ready(err => {
-    t.error(err)
-    fastify.close(err => {
-      t.error(err)
+  fastify.ready(readyErr => {
+    t.error(readyErr)
+    fastify.close(closeError => {
+      t.error(closeError)
       t.end()
     })
   })
@@ -65,19 +68,19 @@ test('Should be able to register a plugin with custom options', t => {
         }
       }
     ],
-    nats: 'nats://127.0.0.1:' + port
+    nats: `nats://127.0.0.1:${port}`
   })
 
-  fastify.ready(err => {
-    t.error(err)
-    fastify.close(err => {
-      t.error(err)
+  fastify.ready(readyErr => {
+    t.error(readyErr)
+    fastify.close(closeError => {
+      t.error(closeError)
       t.end()
     })
   })
 })
 
-test('teardown', function(t) {
+test('teardown', function teardown(t) {
   server.kill()
   t.end()
 })

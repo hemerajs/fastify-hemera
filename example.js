@@ -1,6 +1,8 @@
 'use strict'
 
+// eslint-disable-next-line
 const Fastify = require('fastify')
+const plugin = require('./')
 
 function hemeraActions(fastify) {
   fastify.hemera.add(
@@ -8,7 +10,7 @@ function hemeraActions(fastify) {
       topic: 'math',
       cmd: 'add'
     },
-    function(req, reply) {
+    function handler(req, reply) {
       reply(null, { result: req.a + req.b })
     }
   )
@@ -39,7 +41,7 @@ function routes(fastify) {
         b: { type: 'integer' }
       }
     },
-    handler: (req, reply) => {
+    handler: req => {
       req.log.info('Reply route')
       return req.hemera
         .act({
@@ -57,13 +59,15 @@ function build(opts) {
   const fastify = Fastify({ logger: opts.logger })
 
   fastify
-    .register(require('./'), {
+    .register(plugin, {
       hemera: opts.hemera,
       plugins: opts.plugins,
       nats: opts.nats
     })
     .after(err => {
-      if (err) throw err
+      if (err) {
+        throw err
+      }
       routes(fastify)
       hemeraActions(fastify)
     })
