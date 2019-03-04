@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/hemerajs/fastify-hemera.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "keywords": [
     "web",
     "framework",
