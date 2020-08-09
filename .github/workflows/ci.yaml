@@ -14,7 +14,7 @@ jobs:
       - run: |-
           wget https://github.com/nats-io/gnatsd/releases/download/v2.1.7/nats-server-v2.1.7-linux-amd64.zip -qO tmp.zip
           unzip tmp.zip
-          sudo mv gnatsd-v0.9.4-linux-amd64/nats-server /usr/local/bin/gnatsd
+          sudo mv nats-server-v2.1.7-linux-amd64/nats-server /usr/local/bin/gnatsd
       - name: Setup node
         uses: actions/setup-node@v1
         with:
