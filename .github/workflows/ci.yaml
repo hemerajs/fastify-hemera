@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |-
-          wget https://github.com/nats-io/gnatsd/releases/download/v0.9.4/gnatsd-v0.9.4-linux-amd64.zip -qO tmp.zip
+          wget https://github.com/nats-io/gnatsd/releases/download/v2.1.7/nats-server-v2.1.7-linux-amd64.zip -qO tmp.zip
           unzip tmp.zip
-          mv gnatsd-v0.9.4-linux-amd64 /usr/bin/gnatsd
+          sudo mv gnatsd-v0.9.4-linux-amd64/nats-server /usr/local/bin/gnatsd
       - name: Setup node
         uses: actions/setup-node@v1
         with:
