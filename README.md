@@ -64,3 +64,23 @@ fastify.route({
   }
 })
 ```
+
+## Test
+
+Testsuite makes use of [hemera-testsuite](https://github.com/hemerajs/hemera-testsuite), so your setup should meet it's prerequisits, esp.:
+
+A nats server must be installed on your machine [nats.io](https://nats.io/download/nats-io/nats-server/) and executable as `gnatsd`. So add `nats-server` as `gnatsd` to your `PATH` as alias, link whatever works. Check if it's available:
+
+```sh
+$ gnatsd --help
+
+Usage: nats-server [options]
+
+[...]
+```
+
+Now test should succeed by running:
+
+```sh
+$ yarn test
+```
