@@ -10,8 +10,8 @@ let fastify = null
 let server = null
 const port = 4234
 
-test('setup', t => {
-  server = ts.start_server(port, err => {
+test('setup', (t) => {
+  server = ts.start_server(port, (err) => {
     t.error(err)
     fastify = build({
       plugins: [],
@@ -21,7 +21,7 @@ test('setup', t => {
   })
 })
 
-test('reply decorator', t => {
+test('reply decorator', (t) => {
   t.plan(2)
 
   fastify.inject(
@@ -37,18 +37,18 @@ test('reply decorator', t => {
   )
 })
 
-test('fastify decorator', t => {
+test('fastify decorator', (t) => {
   t.plan(1)
 
   fastify.hemera
     .act({ topic: 'math', cmd: 'add', a: 1, b: 2 })
-    .then(result => {
+    .then((result) => {
       t.deepEqual(result.data, { result: 3 })
     })
     .catch(() => t.fail('should not land in catch'))
 })
 
-test('request decorator', t => {
+test('request decorator', (t) => {
   t.plan(2)
 
   fastify.inject(

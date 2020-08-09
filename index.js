@@ -7,10 +7,10 @@ const Hemera = require('nats-hemera')
 function fastifyHemera(fastify, opts, next) {
   const hemera = new Hemera(opts.natsInstance || Nats.connect(opts.nats), opts.hemera)
 
-  hemera.ext('onError', error => fastify.log.error(error))
+  hemera.ext('onError', (error) => fastify.log.error(error))
 
   if (opts.plugins && opts.plugins.length) {
-    opts.plugins.forEach(p => {
+    opts.plugins.forEach((p) => {
       if (p.plugin) {
         hemera.use(p.plugin, p.options)
       } else {
@@ -33,8 +33,8 @@ function fastifyHemera(fastify, opts, next) {
   fastify.decorateReply('act', function act(pattern) {
     return hemera
       .act(pattern)
-      .then(resp => this.send(resp.data))
-      .catch(err => this.send(err))
+      .then((resp) => this.send(resp.data))
+      .catch((err) => this.send(err))
   })
 
   hemera.ready(next)

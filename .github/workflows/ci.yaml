@@ -1,0 +1,24 @@
+name: Continuous Integration
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+        os: [ubuntu-latest]
+    name: Node ${{ matrix.node-version }}
+    steps:
+      - uses: actions/checkout@v1
+      - run: >-
+          wget https://github.com/nats-io/gnatsd/releases/download/v0.9.4/gnatsd-v0.9.4-linux-amd64.zip -qO tmp.zip
+          unzip tmp.zip
+          mv gnatsd-v0.9.4-linux-amd64 /usr/bin/gnatsd
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install
+      - run: yarn lint
+      - run: yarn test

@@ -41,7 +41,7 @@ function routes(fastify) {
         b: { type: 'integer' }
       }
     },
-    handler: req => {
+    handler: (req) => {
       req.log.info('Reply route')
       return req.hemera
         .act({
@@ -50,7 +50,7 @@ function routes(fastify) {
           a: req.query.a,
           b: req.query.b
         })
-        .then(resp => resp.data)
+        .then((resp) => resp.data)
     }
   })
 }
@@ -64,7 +64,7 @@ function build(opts) {
       plugins: opts.plugins,
       nats: opts.nats
     })
-    .after(err => {
+    .after((err) => {
       if (err) {
         throw err
       }

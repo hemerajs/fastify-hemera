@@ -12,14 +12,14 @@ const build = require('./example')
 const port = 4250
 let server = null
 
-test('setup', t => {
-  server = ts.start_server(port, err => {
+test('setup', (t) => {
+  server = ts.start_server(port, (err) => {
     t.error(err)
     t.end()
   })
 })
 
-test('Should be able to register a plugin', t => {
+test('Should be able to register a plugin', (t) => {
   t.plan(3)
 
   const fastify = build({
@@ -38,16 +38,16 @@ test('Should be able to register a plugin', t => {
     nats: `nats://127.0.0.1:${port}`
   })
 
-  fastify.ready(readyErr => {
+  fastify.ready((readyErr) => {
     t.error(readyErr)
-    fastify.close(closeError => {
+    fastify.close((closeError) => {
       t.error(closeError)
       t.end()
     })
   })
 })
 
-test('Should be able to register a plugin with custom options', t => {
+test('Should be able to register a plugin with custom options', (t) => {
   t.plan(3)
 
   const fastify = build({
@@ -71,9 +71,9 @@ test('Should be able to register a plugin with custom options', t => {
     nats: `nats://127.0.0.1:${port}`
   })
 
-  fastify.ready(readyErr => {
+  fastify.ready((readyErr) => {
     t.error(readyErr)
-    fastify.close(closeError => {
+    fastify.close((closeError) => {
       t.error(closeError)
       t.end()
     })
